@@ -12,6 +12,9 @@ The `multicellular_phase_field_active_gel_organoids` library is an implementatio
 ## Usage
 ```sh
 
+# Setting up the initial condition for the simulation
+
+
 # Code compile
 nvcc -O3 -DSFMT_MEXP=19937 src/mcpf_2d_usc.cu src/SFMT.c -o run_simulation -std=c++11
 
