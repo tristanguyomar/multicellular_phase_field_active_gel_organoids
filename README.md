@@ -8,7 +8,7 @@ The `multicellular_phase_field_active_gel_organoids` library is an implementatio
 
 ### The multicellular phase-field model coupled with an active gel description of the cell cortex
 
-
+To compile this code, you need to have the PGI compiler installed. It is available at http://www.pgroup.com/.
 ## Usage
 ```sh
 
