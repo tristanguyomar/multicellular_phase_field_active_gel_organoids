@@ -1,6 +1,6 @@
 #  multicellular_phase_field_active_gel_organoids
 
-<img src="https://github.com/kana-fuji/MCPFM_for_Lumen_Fusion/assets/135681531/dc348586-a0d3-4494-84a3-ed88bfe4b1c9" width="400">
+<img src="https://github.com/tristanguyomar/multicellular_phase_field_active_gel_organoids/github_figure" width="400">
 <hr/>
 
 The `multicellular_phase_field_active_gel_organoids` library is an implementation of the multicellular phase-field model coupled to an active gel description of the cellular cortex that simulate cell and organoid shape as described in ...
