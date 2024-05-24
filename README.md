@@ -36,9 +36,10 @@ nvc++ -c cell_phase_functions.cpp -v -fastsse -lm -Mipa=fast -ta=tesla -tp=px -M
 nvc++ -c prepare_initial_files.cpp -v -fastsse -lm -Mipa=fast -ta=tesla -tp=px -Mcuda -acc -Minfo=accel -Mvect=levels:5 -o prepare_initial_files.o -I${CUDAPATH}/include -lcudart -lcufft
 nvc++ constants.o declare_tables.o initialisation_functions.o useful_functions.o cell_phase_functions.o prepare_initial_files.o -v -ta=tesla -tp=px -Mcuda -acc -Minfo=all,accel -Mvect=levels:5 -o prepare_initial_files -I${CUDAPATH}/include -lcudart -lcufft
 ```
-# Runnning simulation to save initial conditions:
+### Running the initialisation code
+```sh
 ./launch_all.sh
-
+```
 
 
 ## Authors
