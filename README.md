@@ -11,8 +11,8 @@ The `multicellular_phase_field_active_gel_organoids` library is an implementatio
 To compile this code, you need to have the PGI compiler installed. It is available at http://www.pgroup.com/ or within the NVC compiler available at : https://developer.nvidia.com/nvidia-hpc-sdk-233-downloads
 
 ## Usage
- 
-### Setting up the initial condition for the simulation
+
+### Setting up the initial condition for the simulation
 
 To set up the initial condition for the simulation, you will need to change all simulation parameters by updating the 'constants_template.cpp' file.
 Here, you will be able to choose the grid size, the time step and spatial grid step.
