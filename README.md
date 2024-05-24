@@ -12,7 +12,7 @@ To compile this code, you need to have the PGI compiler installed. It is availab
 
 ## Usage
 
-### Setting up the initial condition for the simulation
+### I.a. Setting up the initial condition for the simulation
 
 To set up the initial condition for the simulation, you will need to change all simulation parameters by updating the 'constants_template.cpp' file.
 Here, you will be able to choose the grid size, the time step and spatial grid step.
@@ -24,7 +24,7 @@ python setup_simulation_ini.py
 ```
 This will create a folder for each set of parameters that have been specified in the 'setup_simulation_ini.py' file.
 
-### Compiling the initialisation code
+### I.b. Compiling the initialisation code
 
 ```sh
 nvc++ -c constants.cpp -v -fastsse -lm -Mipa=fast -ta=tesla -tp=px -Mcuda -acc -Minfo=accel -Mvect=levels:5 -o constants.o -I${CUDAPATH}/include -lcudart -lcufft
@@ -36,9 +36,38 @@ nvc++ -c cell_phase_functions.cpp -v -fastsse -lm -Mipa=fast -ta=tesla -tp=px -M
 nvc++ -c prepare_initial_files.cpp -v -fastsse -lm -Mipa=fast -ta=tesla -tp=px -Mcuda -acc -Minfo=accel -Mvect=levels:5 -o prepare_initial_files.o -I${CUDAPATH}/include -lcudart -lcufft
 nvc++ constants.o declare_tables.o initialisation_functions.o useful_functions.o cell_phase_functions.o prepare_initial_files.o -v -ta=tesla -tp=px -Mcuda -acc -Minfo=all,accel -Mvect=levels:5 -o prepare_initial_files -I${CUDAPATH}/include -lcudart -lcufft
 ```
-### Running the initialisation code
+### I.c. Running the initialisation code
 ```sh
 ./launch_all.sh
+```
+
+### I.c. Plotting the initial configuration
+
+To plot the initial condition in various ways: you can use the code :
+```sh
+python plot_initial_condition.py '/data_ini_to_plot/'
+python plot_ini.py
+```
+Then, you will have to retrieve the initial conditions files : 'ini_cell_1.bin' from the created folder and put them in the same directory as the 'setup_simulation.py' file.
+
+### II.a Setting up the main code parameters
+
+Here you will have to choose the number of steps that you want to compute and the number of files you want to save. Be careful that since it is a GPU accelerated code, the data is only retrieved at the end of the number of steps that you precise, that is why the code was adpated to be able to use the same compile code in sequential loops and retrieve computed data to able the user to follow the evolution of the simulation overtime.
+Typical working number of steps was 100001 and it was runned about 25 times in 24 hours with a saving step every 10000 steps.  
+
+### II.a Compiling the main code
+
+```sh
+nvc++ -c constants.cpp -v -fastsse -lm -Mipa=fast -ta=tesla -tp=px -Mcuda -acc -Minfo=accel -Mvect=levels:5 -o constants.o -I${CUDAPATH}/include -lcudart -lcufft
+nvc++ -c declare_tables.cpp -v -fastsse -lm -Mipa=fast -ta=tesla -tp=px -Mcuda -acc -Minfo=accel -Mvect=levels:5 -o declare_tables.o -I${CUDAPATH}/include -lcudart -lcufft
+nvc++ -c declare_fft_tables.cpp -v -fastsse -lm -Mipa=fast -ta=tesla -tp=px -Mcuda -acc -Minfo=accel -Mvect=levels:5 -o declare_fft_tables.o -I${CUDAPATH}/include -lcudart -lcufft
+nvc++ -c initialisation_functions.cpp -v -fastsse -lm -Mipa=fast -ta=tesla -tp=px -Mcuda -acc -Minfo=accel -Mvect=levels:5 -o initialisation_functions.o -I${CUDAPATH}/include -lcudart -lcufft
+nvc++ -c useful_functions.cpp -v -fastsse -lm -Mipa=fast -ta=tesla -tp=px -Mcuda -acc -Minfo=accel -Mvect=levels:5 -o useful_functions.o -I${CUDAPATH}/include -lcudart -lcufft
+nvc++ -c rho_functions.cpp -v -fastsse -lm -Mipa=fast -ta=tesla -tp=px -Mcuda -acc -Minfo=accel -Mvect=levels:5 -o rho_functions.o -I${CUDAPATH}/include -lcudart -lcufft
+nvc++ -c cell_phase_functions.cpp -v -fastsse -lm -Mipa=fast -ta=tesla -tp=px -Mcuda -acc -Minfo=accel -Mvect=levels:5 -o cell_phase_functions.o -I${CUDAPATH}/include -lcudart -lcufft
+
+nvc++ -c run_with_active_gels.cpp -v -fastsse -lm -Mipa=fast -ta=tesla -tp=px -Mcuda -acc -Minfo=accel -Mvect=levels:5 -o run_with_active_gels.o -I${CUDAPATH}/include -lcudart -lcufft
+nvc++ constants.o declare_tables.o declare_fft_tables.o initialisation_functions.o useful_functions.o rho_functions.o cell_phase_functions.o run_with_active_gels.o -v -ta=tesla -tp=px -Mcuda -acc -Minfo=all,accel -Mvect=levels:5 -o run_with_active_gels -I${CUDAPATH}/include -lcudart -lcufft
 ```
 
 
