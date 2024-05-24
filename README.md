@@ -92,7 +92,7 @@ do
     x=$(($x + 1))
 done
 ```
-
+Here you can choose the number of time you want to run the main code. The code 'rename_files.py' is needed to be able to overwrite files and proper saving of the data.
 
 ## Authors
 
