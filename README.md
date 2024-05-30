@@ -12,6 +12,8 @@ To compile this code, you need to have the PGI compiler installed. It is availab
 
 ## Usage
 
+Before starting, locate all the files contained in the folders "main_code", "functions", "initialisation_code" to the same folder and run all the following instruction from this directory.
+
 ### I.a. Setting up the initial condition for the simulation
 
 To set up the initial condition for the simulation, you will need to change all simulation parameters by updating the 'constants_template.cpp' file.
